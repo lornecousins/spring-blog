@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+
     @GetMapping
     @ResponseBody
     public String landing(){
