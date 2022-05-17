@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <title>Posts</title>
 </head>
-<!--<head th:replace="partials/partials.html :: head ('View All Posts')"></head>-->
+<head th:replace="partials/partials.html :: head ('View All Posts')"></head>
 <body>
-<ul th:replace="partials/partials.html :: navbar"></ul>
+<nav th:replace="partials/partials.html :: navbar"></nav>
 <h1>Here are all the posts</h1>
-<ul th:each="post : ${allPosts}">
+<ul th:each="post : ${posts}">
   <li>
-    <h2 th:text="${post.title}"></h2>
-    <p th:text="${post.body}"></p>
+    <h2 th:text="${post.getTitle}"></h2>
+    <p th:text="${post.getBody}"></p>
   </li>
 </ul>
 </body>
