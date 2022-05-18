@@ -71,9 +71,9 @@ public String allPosts(Model model){
         return "redirect:/posts";
             }
 
-        @GetMapping("/history")
-        public String postHistory(){
-        return Post.PostDetails.historyOfPost
-        }
+//        @GetMapping("/history")
+//        public String postHistory(){
+//        return Post.PostDetails.historyOfPost
+//        }
 
         }

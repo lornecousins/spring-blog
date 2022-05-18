@@ -12,6 +12,9 @@ public class Post {
     @Column
     private String body;
 
+    @OneToOne
+    private PostDetails postDetails;
+
     public Post(){}
 
     public Post(String title, String body) {

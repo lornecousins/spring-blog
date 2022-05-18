@@ -19,18 +19,55 @@ public class PostDetails {
     @Column
     private String topicDescription;
 
-    @OneToOne
-    private Post owner;
+
 
     public PostDetails(){}
 
+    public long getId() {
+        return id;
+    }
 
-    public PostDetails(long id, boolean isAwesome, String historyOfPost, String topicDescription, Post owner) {
+    public void setId(long id) {
         this.id = id;
-        this.isAwesome = isAwesome;
+    }
+
+    public boolean isAwesome() {
+        return isAwesome;
+    }
+
+    public void setAwesome(boolean awesome) {
+        isAwesome = awesome;
+    }
+
+    public String getHistoryOfPost() {
+        return historyOfPost;
+    }
+
+    public void setHistoryOfPost(String historyOfPost) {
         this.historyOfPost = historyOfPost;
+    }
+
+    public String getTopicDescription() {
+        return topicDescription;
+    }
+
+    public void setTopicDescription(String topicDescription) {
         this.topicDescription = topicDescription;
-        this.owner = owner;
+    }
+
+//    public PostDetails(long id, boolean isAwesome, String historyOfPost, String topicDescription) {
+//        this.id = id;
+//        this.isAwesome = isAwesome;
+//        this.historyOfPost = historyOfPost;
+//        this.topicDescription = topicDescription;
+//    }
+
+    @Override
+    public String toString(){
+        return "PostDetails{" + "id=" + id + ", topicDescription='" + topicDescription + '\'' +
+                ", isAwesome=" + isAwesome +
+                ", historyOfPost=" + historyOfPost +
+                '}';
     }
 }
 
