@@ -31,7 +31,7 @@ public class PostDetails {
         this.id = id;
     }
 
-    public boolean isAwesome() {
+    public boolean getisAwesome() {
         return isAwesome;
     }
 

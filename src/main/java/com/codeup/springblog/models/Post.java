@@ -9,11 +9,15 @@ public class Post {
     private long id;
     @Column(nullable = false, length = 50)
     private String title;
-    @Column
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
 
-    @OneToOne
-    private PostDetails postDetails;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User owner;
+
+
+//    private PostDetails postDetails;
 
     public Post(){}
 
@@ -28,27 +32,42 @@ public class Post {
         this.body = body;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
+    public Post(long id, String title, String description, User owner) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
+        this.body = description;
+        this.owner = owner;
     }
 
-    public String getBody() {
-        return body;
-    }
+        public long getId () {
+            return id;
+        }
 
-    public void setBody(String body) {
-        this.body = body;
+        public void setId ( long id){
+            this.id = id;
+        }
+
+        public String getTitle () {
+            return title;
+        }
+
+        public void setTitle (String title){
+            this.title = title;
+        }
+
+        public String getBody () {
+            return body;
+        }
+
+        public void setBody (String body){
+            this.body = body;
+        }
+
+        public User getOwner () {
+            return owner;
+        }
+
+        public void setOwner (User owner){
+            this.owner = owner;
+        }
     }
-}

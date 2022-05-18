@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View a Post</title>
+</head>
+<head th:replace="partials/partials.html :: head ('View One Post')"></head>
+<body>
+<header th:replace="partials/partials.html :: navbar"></header>
+
+
+<h3><span th:text="${post.title}"></span></h3>
+<p><span th:text="${post.description}"></span></p>
+<p>Posted by:<span th:text="${post.getOwner().getUsername()}"></span></p>
+
+<br>
+<h4>Edit Post Here</h4>
+<form action="/posts/edit" method="post">
+  <input type="hidden" name="id" th:value="${post.id}">
+  <label for="title"></label>
+  <input type="text" id="title" name="title" th:value="${post.title}">
+  <label for="description"></label>
+  <input style="width: 50%" type="text" id="description" name="description" th:value="${post.description}">
+  <button>Update</button>
+</form>
+</body>
+</html>
