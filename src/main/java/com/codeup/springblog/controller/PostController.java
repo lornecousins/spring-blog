@@ -70,5 +70,10 @@ public String allPosts(Model model){
             postDao.save(post);
         return "redirect:/posts";
             }
+
+        @GetMapping("/history")
+        public String postHistory(){
+        return Post.PostDetails.historyOfPost
         }
 
+        }
