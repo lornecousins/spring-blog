@@ -32,10 +32,10 @@ public class Post {
         this.body = body;
     }
 
-    public Post(long id, String title, String description, User owner) {
+    public Post(long id, String title, String body, User owner) {
         this.id = id;
         this.title = title;
-        this.body = description;
+        this.body = body;
         this.owner = owner;
     }
 

@@ -10,8 +10,9 @@
 
 
 <h3><span th:text="${post.title}"></span></h3>
-<p><span th:text="${post.description}"></span></p>
+<p><span th:text="${post.body}"></span></p>
 <p>Posted by:<span th:text="${post.getOwner().getUsername()}"></span></p>
+<p>Email: <span th:text="${post.getOwner().getEmail()}"></span> </p>
 
 <br>
 <h4>Edit Post Here</h4>
@@ -20,7 +21,7 @@
   <label for="title"></label>
   <input type="text" id="title" name="title" th:value="${post.title}">
   <label for="description"></label>
-  <input style="width: 50%" type="text" id="description" name="description" th:value="${post.description}">
+  <input style="width: 50%" type="text" id="description" name="description" th:value="${post.body}">
   <button>Update</button>
 </form>
 </body>

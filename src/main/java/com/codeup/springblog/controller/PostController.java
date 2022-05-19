@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/posts")
+@RequestMapping("/")
 public class PostController {
 
 
@@ -69,7 +69,7 @@ public class PostController {
 
             @GetMapping("/posts/create")
             public String createForm() {
-                return "/posts/create";
+                return "posts/create";
             }
 
 //            @PostMapping("/create")
@@ -86,11 +86,12 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String submitPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body){
-        User user = userDao.getById(1L);
+        User user = userDao.getById(2L);
         Post post = new Post();
         post.setTitle(title);
         post.setBody(body);
         post.setOwner(user);
+        user.getPosts().add(post);
         postDao.save(post);
         return "redirect:/posts";
     }
@@ -106,8 +107,8 @@ public class PostController {
         return "posts/show";
     }
     @PostMapping("/posts/edit")
-    public String updatePost(@RequestParam(name = "title") String title, @RequestParam(name = "description") String description, @RequestParam(name = "id") long id) {
-        Post post = new Post(id, title, description);
+    public String updatePost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @RequestParam(name = "id") long id) {
+        Post post = new Post(id, title, body);
         postDao.save(post);
         return "redirect:/posts";
     }
