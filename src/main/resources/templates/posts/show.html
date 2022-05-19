@@ -11,8 +11,8 @@
 
 <h3><span th:text="${post.title}"></span></h3>
 <p><span th:text="${post.body}"></span></p>
-<p>Posted by:<span th:text="${post.getOwner().getUsername()}"></span></p>
-<p>Email: <span th:text="${post.getOwner().getEmail()}"></span> </p>
+<!--<div>Posted by:<span th:text="${post.user.getUsername()}"></span></div>-->
+<div>Email: <span th:text="${post.user.email}"></span> </div>
 
 <br>
 <h4>Edit Post Here</h4>

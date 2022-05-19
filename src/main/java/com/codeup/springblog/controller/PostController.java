@@ -90,7 +90,7 @@ public class PostController {
         Post post = new Post();
         post.setTitle(title);
         post.setBody(body);
-        post.setOwner(user);
+        post.setUser(user);
         user.getPosts().add(post);
         postDao.save(post);
         return "redirect:/posts";
@@ -114,7 +114,7 @@ public class PostController {
     }
 
     @PostMapping("/posts/delete")
-    public String updatePost(@RequestParam(name = "deletePost") long id) {
+    public String deletePost(@RequestParam(name = "deletePost") long id) {
         postDao.deleteById(id);
         return "redirect:/posts";
     }
