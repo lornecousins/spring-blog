@@ -7,10 +7,14 @@
 <h1>Tags</h1>
 
 <div th:each="tag : ${tags}">
-       <h2 th:text="${tag.name}"></h2>
-      <form method="get" action="/tag.edit">
+    <h4>Tag #<span th:text="${tag.id}"></span></h4>
+    <h2 th:text="${tag.name}"></h2>
+      <form method="get" th:action="@{/tags/edit/{id}(id=${tag.id})}">
        <button>Edit Tag</button>
       </form>
+    <form th:method="post" th:action="@{/tags/delete/{id}(id=${tag.id})}">
+        <button type="submit" name="id">Delete Tag</button>
+    </form>
 </div>
 
 <form method="get" action="/tags/create">

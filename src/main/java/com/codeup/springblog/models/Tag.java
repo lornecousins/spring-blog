@@ -12,7 +12,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     String name;
 
     @ManyToMany(mappedBy = "postTags")
