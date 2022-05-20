@@ -1,6 +1,7 @@
 package com.codeup.springblog.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
@@ -25,6 +26,7 @@ public class MathController {
     public double threeMinusTen(@PathVariable double num1, @PathVariable double num2) {
         return num1 - num2;
     }
+
     @GetMapping(path = "/multiply/{num1}/and/{num2}")
     @ResponseBody
     public double fourTimesFive(@PathVariable double num1, @PathVariable double num2){
@@ -36,4 +38,36 @@ public class MathController {
     public double divideSixByThree(@PathVariable double num1, @PathVariable double num2){
         return num1 / num2;
     }
+
+    @GetMapping("/math")
+    public String math() {
+        return "math/index";
+    }
+
+    @PostMapping("/math")
+    public String doMath
+            (@RequestParam(name = "inputA") double inputA,
+            @RequestParam(name = "inputB") double inputB,
+             @RequestParam(name = "operation") String operation,
+             Model model) {
+        double total = 0L;
+
+        switch (operation) {
+            case "add":
+                total = inputA + inputB;
+                break;
+            case "subtract":
+                total = inputA - inputB;
+                break;
+            case "multiply":
+                total = inputA * inputB;
+                break;
+            case "divide":
+                total = inputA / inputB;
+                break;
+        }
+        model.addAttribute("total", total);
+        return "math/index";
+    }
+
 }

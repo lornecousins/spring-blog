@@ -8,4 +8,5 @@ public interface TagRepository extends JpaRepository<Tag, String> {
     Tag getByName(String name);
 
     void findAllById(long l);
+    Tag getById(long id);
 }
