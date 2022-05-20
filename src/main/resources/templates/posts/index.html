@@ -6,6 +6,7 @@
 <header th:replace="partials/partials.html :: navbar"></header>
     <form method="get" action="/posts/create">
         <button>Create a Post</button>
+        <a th:href="@{'/posts/{funny}'}">Funny Posts</a>
     </form>
 <h1>Here are all the posts!</h1>
 

@@ -2,8 +2,10 @@ package com.codeup.springblog.controller;
 
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.Tag;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.TagRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +22,15 @@ public class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private final TagRepository tagDao;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+    public PostController(PostRepository postDao, UserRepository userDao, TagRepository tagDao) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.tagDao = tagDao;
     }
 
-//    public List<Post> generatePosts(){
+    //    public List<Post> generatePosts(){
 //        Post post1 = new Post(1, "First post", "This is my first post!");
 //        Post post2 = new Post(2, "Another post!", "Amazing content!");
 //        Post post3 = new Post(3, "Third post", "Fascinating information!");
@@ -117,6 +121,12 @@ public class PostController {
     public String deletePost(@RequestParam(name = "deletePost") long id) {
         postDao.deleteById(id);
         return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/funny")
+    public String postByTag(@PathVariable long id, Model model){
+        tagDao.findAllById(2L);
+        return "posts/funny";
     }
 
         }
