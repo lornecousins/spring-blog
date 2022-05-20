@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="partials/partials.html :: head ('View All Movies')"></head>
+<body>
+<header th:replace="partials/partials.html :: navbar"></header>
+
+<h1>Tags</h1>
+
+<div th:each="tag : ${tags}">
+       <h2 th:text="${tag.name}"></h2>
+      <form method="get" action="/tag.edit">
+       <button>Edit Tag</button>
+      </form>
+</div>
+
+<form method="get" action="/tags/create">
+       <button>Create a Tag</button>
+</form>
+
+
+</body>
+</html>

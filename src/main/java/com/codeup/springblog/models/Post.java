@@ -1,6 +1,9 @@
 package com.codeup.springblog.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -16,6 +19,15 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name="post_tags",
+            joinColumns = {@JoinColumn(name="post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    @JsonManagedReference
+    private List<Tag> postTags;
 
     public User getUser() {
         return user;
@@ -73,4 +85,11 @@ public class Post {
         this.body = body;
     }
 
+    public List<Tag> getPostTags() {
+        return postTags;
+    }
+
+    public void setPostTags(List<Tag> postTags) {
+        this.postTags = postTags;
+    }
 }

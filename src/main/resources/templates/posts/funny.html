@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View a Title</title>
+</head>
+<head th:replace="partials/partials.html :: head ('View One Post')"></head>
+<body>
+<header th:replace="partials/partials.html :: navbar"></header>
+
+<h1>Here are all the Funny Post Titles:</h1>
+
+<h3><span th:text="${post.title}"></span></h3>
+<!--<p><span th:text="${post.postTags}"></span></p>-->
+
+</body>

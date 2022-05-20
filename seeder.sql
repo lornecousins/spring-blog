@@ -10,3 +10,8 @@ INSERT INTO post_details (history_of_post, is_awesome, topic_description, owner_
 
 INSERT INTO post_details (history_of_post, is_awesome, topic_description, owner_id) VALUES ('2 years', true, 'Awesomeness of Post', 2);
 
+INSERT INTO tags (name)
+VALUE ('Silly'), ('Funny'), ('humor');
+
+INSERT INTO post_tags (post_id, tag_id)
+VALUE (12, 1), (12, 2), (13, 3), (13, 2);
