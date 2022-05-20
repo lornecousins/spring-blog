@@ -37,14 +37,22 @@ public class TagController {
     @GetMapping("/edit/{id}")
     public String editTag(
             @PathVariable long id, Model model){
-        model.addAttribute("tags", tagDao.getById(id));
-        return "tags/create";
+
+        model.addAttribute("tag", tagDao.getById(id));
+        return "tags/edit";
     }
 
     @PostMapping("/edit")
     public String doEditTag(
             @ModelAttribute Tag tag){
+
         tagDao.save(tag);
+        return "redirect:/tags";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteTag(@PathVariable long id, Model model){
+        tagDao.deleteById(id);
         return "redirect:/tags";
     }
 
