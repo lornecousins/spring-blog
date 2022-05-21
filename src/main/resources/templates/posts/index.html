@@ -6,8 +6,12 @@
 <header th:replace="partials/partials.html :: navbar"></header>
     <form method="get" action="/posts/create">
         <button>Create a Post</button>
-        <a th:href="@{'/posts/{funny}'}">Funny Posts</a>
     </form>
+
+    <form method="get" th:action="@{/posts/funny/}">
+        <button>Funny Posts</button>
+    </form>
+
 <h1>Here are all the posts!</h1>
 
 <div th:each="post : ${posts}">
@@ -15,7 +19,9 @@
     <h3 th:text="${post.title}"></h3>
 <!--    <span>Posted by: <span th:text="${post.user.email}"></span></span>-->
     <p th:text="${post.body}"></p>
-    <a th:href="@{'/posts/' + ${post.id}}">Edit Post</a>
+    <form method="get" th:action="@{posts/edit/{id}(id=${post.id})}">
+        <button>Edit Post</button>
+    </form>
     <form method="post" action="/posts/delete">
         <input type="hidden" th:value="${post.id}" name="deletePost">
         <button onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>

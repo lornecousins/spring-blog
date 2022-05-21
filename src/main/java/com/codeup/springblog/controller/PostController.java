@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,10 +104,10 @@ public class PostController {
         model.addAttribute("posts", postDao.findAll());
         return "posts/index";
     }
-    @GetMapping("/posts/{id}")
+    @GetMapping("/posts/edit/{id}")
     public String postById(@PathVariable long id, Model model) {
         model.addAttribute("post", postDao.getById(id));
-        return "posts/show";
+        return "posts/edit";
     }
     @PostMapping("/posts/edit")
     public String updatePost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @RequestParam(name = "id") long id) {
@@ -124,9 +123,28 @@ public class PostController {
     }
 
     @GetMapping("/posts/funny")
-    public String postByTag(@PathVariable long id, Model model){
-        tagDao.findAllById(2L);
+    public String showFunnyTags(){
         return "posts/funny";
     }
 
-        }
+//    @PostMapping("/posts/funny")
+//    public String funnyTagTitles(@RequestParam(name = "title") String title{
+//        Post post = new Post(title)
+//        post.getPostTags(2L);
+//        tag.setName(tag);
+//        postDao.save(post);
+//        return "redirect:/posts";
+//    }
+//            @PathVariable long id, Model model){
+//        model.addAttribute("tag", tagDao.getById(id));
+//        return "posts/funny";
+//    }
+
+//    @PostMapping("/p")
+//    public String doEditTag(
+//            @ModelAttribute Tag tag){
+//
+//        tagDao.save(tag);
+//        return "redirect:/tags";
+//    }
+}
