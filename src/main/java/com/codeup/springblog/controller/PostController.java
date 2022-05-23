@@ -7,6 +7,9 @@ import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.TagRepository;
 import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +26,22 @@ public class PostController {
     private final UserRepository userDao;
     private final TagRepository tagDao;
 
-    public PostController(PostRepository postDao, UserRepository userDao, TagRepository tagDao) {
+    private EmailService emailService;
+
+    public  PostController(PostRepository postDao, UserRepository userDao, TagRepository tagDao, EmailService emailService){
         this.postDao = postDao;
         this.userDao = userDao;
         this.tagDao = tagDao;
+        this.emailService = emailService;
     }
+
+
+//    public PostController(PostRepository postDao, UserRepository userDao, TagRepository tagDao) {
+//        this.postDao = postDao;
+//        this.userDao = userDao;
+//        this.tagDao = tagDao;
+//    }
+
 
     //    public List<Post> generatePosts(){
 //        Post post1 = new Post(1, "First post", "This is my first post!");
@@ -71,7 +85,8 @@ public class PostController {
 //            }
 
             @GetMapping("/posts/create")
-            public String createForm() {
+            public String createForm(Model model) {
+                model.addAttribute("post", new Post());
                 return "posts/create";
             }
 
@@ -88,13 +103,20 @@ public class PostController {
 //        }
 
     @PostMapping("/posts/create")
-    public String submitPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body){
-        User user = userDao.getById(2L);
-        Post post = new Post();
-        post.setTitle(title);
-        post.setBody(body);
+//    public String submitPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body){
+        public String submitPost(
+                @ModelAttribute Post post
+    ){
+//        User user = userDao.getById(2L);
+//        Post post = new Post();
+//        post.setTitle(title);
+//        post.setBody(body);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
-        user.getPosts().add(post);
+//        user.getPosts().add(post);
+
+        emailService.prepareAndSend(post, post.getTitle(), post.getBody());
+
         postDao.save(post);
         return "redirect:/posts";
     }
@@ -109,11 +131,28 @@ public class PostController {
         model.addAttribute("post", postDao.getById(id));
         return "posts/edit";
     }
+
+    // Dane's version
+    // @GetMapping("/posts/{id}/edit")
+    //    public String editPost(@PathVariable(name="id")  Long id, Model model) {
+    //        model.addAttribute("post", postDao.getById(id));
+    //        return "posts/edit";
+    //    }
+
+//    @PostMapping("/posts/edit")
+//    public String doEdit(
+//    @ModelAttribute Post post)
+//      { postDao.save(post)
+//        return "redirect:/posts";
+//    }
+
     @PostMapping("/posts/edit")
-    public String updatePost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @RequestParam(name = "id") long id) {
-        Post post = new Post(id, title, body);
+    public String updatePost(
+//    (@RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @RequestParam(name = "id") long id) {
+//        Post post = new Post(id, title, body);
+        @ModelAttribute Post post){
         postDao.save(post);
-        return "redirect:/posts";
+        return "redirect:/posts" + post.getId();
     }
 
     @PostMapping("/posts/delete")

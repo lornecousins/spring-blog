@@ -1,5 +1,6 @@
 package com.codeup.springblog.controller;
 
+import com.codeup.springblog.services.MathService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,8 @@ import java.util.Random;
 
 @Controller
 public class MathController {
+
+    MathService mathService = new MathService();
 
     @RequestMapping(path = "/add100To/{number}", method = RequestMethod.GET)
     @ResponseBody
@@ -36,7 +39,8 @@ public class MathController {
     @GetMapping(path = "/divide/{num1}/by/{num2}")
     @ResponseBody
     public double divideSixByThree(@PathVariable double num1, @PathVariable double num2){
-        return num1 / num2;
+//        return num1 / num2;
+        return mathService.divide(num1, num2);
     }
 
     @GetMapping("/math")
@@ -50,22 +54,22 @@ public class MathController {
             @RequestParam(name = "inputB") double inputB,
              @RequestParam(name = "operation") String operation,
              Model model) {
-        double total = 0L;
-
-        switch (operation) {
-            case "add":
-                total = inputA + inputB;
-                break;
-            case "subtract":
-                total = inputA - inputB;
-                break;
-            case "multiply":
-                total = inputA * inputB;
-                break;
-            case "divide":
-                total = inputA / inputB;
-                break;
-        }
+//        double total = 0L;
+//
+//        switch (operation) {
+//            case "add":
+//                total = inputA + inputB;
+//                break;
+//            case "subtract":
+//                total = inputA - inputB;
+//                break;
+//            case "multiply":
+//                total = inputA * inputB;
+//                break;
+//            case "divide":
+//                total = inputA / inputB;
+//                break;
+        double total = mathService.doOperation(operation, inputA, inputB);
         model.addAttribute("total", total);
         return "math/index";
     }
